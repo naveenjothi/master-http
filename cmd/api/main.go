@@ -10,6 +10,8 @@ const port = "8080"
 func handleConnection(conn net.Conn) {
 	defer conn.Close()
 
+	fmt.Printf("Connection from: %s\n", conn.RemoteAddr())
+
 	buffer := make([]byte, 1024)
 
 	n, err := conn.Read(buffer)
@@ -22,7 +24,7 @@ func handleConnection(conn net.Conn) {
 	message := string(buffer[:n])
 	fmt.Println("Received:", message)
 
-	response := "Hello World\n"
+	response := fmt.Sprintf("You said: %s\n", message)
 
 	_, err = conn.Write([]byte(response))
 
