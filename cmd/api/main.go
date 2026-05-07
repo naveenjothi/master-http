@@ -48,6 +48,6 @@ func main() {
 			panic(err)
 		}
 
-		handleConnection(conn)
+		go handleConnection(conn)
 	}
 }
