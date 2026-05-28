@@ -2,10 +2,23 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"net"
 )
 
 const port = "8080"
+
+func buildHTTPResponse(body string) string {
+	return fmt.Sprintf(
+		"HTTP/1.1 200 OK\r\n"+
+			"Content-Type: text/plain\r\n"+
+			"Content-Length: %d\r\n"+
+			"\r\n"+
+			"%s",
+		len(body),
+		body,
+	)
+}
 
 func handleConnection(conn net.Conn) {
 	defer conn.Close()
@@ -14,17 +27,26 @@ func handleConnection(conn net.Conn) {
 
 	buffer := make([]byte, 1024)
 
+	// for {
 	n, err := conn.Read(buffer)
 
 	if err != nil {
-		fmt.Println("Error reading:", err)
+		if err == io.EOF {
+			fmt.Printf("Connection closed by client: %s\n", conn.RemoteAddr())
+		} else {
+			fmt.Println("Error reading:", err)
+		}
 		return
 	}
 
-	message := string(buffer[:n])
-	fmt.Println("Received:", message)
+	request := string(buffer[:n])
 
-	response := fmt.Sprintf("You said: %s\n", message)
+	fmt.Println("RAW REQUEST:")
+	fmt.Println(request)
+
+	body := "Hello World"
+
+	response := buildHTTPResponse(body)
 
 	_, err = conn.Write([]byte(response))
 
@@ -32,6 +54,7 @@ func handleConnection(conn net.Conn) {
 		fmt.Println("Error writing:", err)
 		return
 	}
+	// }
 }
 
 func main() {
