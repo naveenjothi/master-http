@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"io"
 	"net"
+
+	"github.com/naveenjothi/master-http/utils"
 )
 
 const port = "8080"
@@ -39,10 +41,13 @@ func handleConnection(conn net.Conn) {
 		return
 	}
 
-	request := string(buffer[:n])
+	request, err := utils.ParseRequest(buffer[:n])
+	if err != nil {
+		fmt.Println("Error parsing request:", err)
+		return
+	}
 
-	fmt.Println("RAW REQUEST:")
-	fmt.Println(request)
+	fmt.Printf("%v\n", request.Headers)
 
 	body := "Hello World"
 
