@@ -49,7 +49,7 @@ func handleConnection(conn net.Conn) {
 
 	fmt.Printf("%v\n", request.Headers)
 
-	body := "Hello World"
+	body := "Hello World\n"
 
 	response := buildHTTPResponse(body)
 

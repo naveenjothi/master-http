@@ -28,19 +28,19 @@ This project is about learning **how HTTP works on top of TCP** by implementing 
 
 ### **Phase 1.5 – HTTP Fundamentals**
 
-- [ ] Manually craft HTTP requests with `telnet localhost 8080`
-- [ ] Study raw HTTP request/response format byte-by-byte
-- [ ] Implement a simple "HTTP response builder" function
-- [ ] Test with browsers vs curl (observe different headers)
-- [ ] Understand HTTP/1.1 vs HTTP/1.0 differences
+- [x] Manually craft HTTP requests with `telnet localhost 8080`
+- [x] Study raw HTTP request/response format byte-by-byte
+- [x] Implement a simple "HTTP response builder" function
+- [x] Test with browsers vs curl (observe different headers)
+- [x] Understand HTTP/1.1 vs HTTP/1.0 differences
 
 ---
 
 ### **Phase 2 – Enhanced HTTP Parsing**
 
-- [ ] Parse the **request line** → method, path, version (e.g., `GET /hello HTTP/1.1`).
-- [ ] Parse **headers** into a map (handle edge cases: folded headers, case-insensitivity).
-- [ ] **Parse query parameters** (`/search?q=golang&page=2`)
+- [x] Parse the **request line** → method, path, version (e.g., `GET /hello HTTP/1.1`).
+- [x] Parse **headers** into a map (handle edge cases: folded headers, case-insensitivity).
+- [x] **Parse query parameters** (`/search?q=golang&page=2`)
 - [ ] **Handle malformed requests** gracefully (return `400 Bad Request`)
 - [ ] **Parse cookies** from headers
 - [ ] Ignore body for now (only GET requests).
